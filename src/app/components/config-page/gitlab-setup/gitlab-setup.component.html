@@ -1,0 +1,48 @@
+<mat-spinner *ngIf="!contentLoaded"></mat-spinner>
+<form *ngIf="contentLoaded" (ngSubmit)="onSendGitlabFormHandler()" [formGroup]="sendGitlabForm" class="gitlab-setup">
+    <h1>Gitlab Setup</h1>
+
+    <div class="gitlab-setup__inner">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="emailFormControl" placeholder="your personal Gitlab email" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageEmailFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Gitlab project name</mat-label>
+            <input matInput formControlName="projectNameFormControl"
+                placeholder="the name of your Gitlab project" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Gitlab project ID</mat-label>
+            <input matInput formControlName="projectIDFormControl"
+                placeholder="the ID of your Gitlab project" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageProjectIDFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Gitlab BaseURL</mat-label>
+            <input matInput formControlName="urlFormControl"
+                placeholder="e.g. 'https://gitlab.com/'" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageUrlFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Gitlab Access Token</mat-label>
+            <input matInput formControlName="tokenFormControl"
+                placeholder="your personal project access token" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageTokenFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <div class="gitlab-setup__inner-buttons">
+            <button mat-raised-button color="basic" class="gitlab-setup__inner-buttons__button gitlab-setup__inner-buttons__button--left" type="button" [routerLink]="['/config']">Back</button>
+            <button mat-raised-button color="basic" class="gitlab-setup__inner-buttons__button" type="submit" [disabled]="!sendGitlabForm.valid">Next</button>
+        </div>
+    </div>
+</form>

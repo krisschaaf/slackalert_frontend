@@ -1,0 +1,11 @@
+<header class="header">
+    <h1 class="header__headline">SlackAlert</h1>
+    <ng-container [ngSwitch]="auth.isAuthenticated$ | async">
+    <button mat-mini-fab *ngSwitchCase="false" (click)="loginUser()" color="basic" class="header__button">
+        <mat-icon>login</mat-icon>    
+    </button>
+    <button mat-mini-fab *ngSwitchCase="true" (click)="logoutUser()" color="basic" class="header__button">
+        <mat-icon>logout</mat-icon>
+    </button>
+</ng-container>
+</header>

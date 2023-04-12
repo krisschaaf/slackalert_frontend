@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: se2-webapp-frontend
+  name: se2-webapp-frontend
+  namespace: acy642-default
+spec:
+  selector:
+    matchLabels:
+      service: se2-webapp-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        service: se2-webapp-frontend
+    spec:
+      containers:
+        - name: se2-webapp-frontend-container
+          image: "hawtestaccount/se2webapp-frontend:latest"
+          imagePullPolicy: Always
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: se2-webapp-frontend
+  name: se2-webapp-frontend
+  namespace: acy642-default
+spec:
+  selector:
+    service: se2-webapp-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort

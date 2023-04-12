@@ -1,0 +1,89 @@
+<mat-spinner *ngIf="!contentLoaded"></mat-spinner>
+<form *ngIf="contentLoaded" [formGroup]="configForm" class="config-page">
+    <div class="config-page__upper">
+        <h1>Current configuration</h1>
+
+        <button mat-raised-button class="config-page__upper__button" color="primary" type="button"
+            (click)="alert()">Alert!</button>
+
+        <button mat-raised-button class="config-page__upper__button" color="basic" type="button"
+            [routerLink]="['/config/gitlab-setup']">Redo configuration</button>
+            
+    </div>
+    <div class="config-page__inner">
+        <div class="config-page__inner__card">
+            <h3>Gitlab Setup</h3>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="gitlabEmailFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Gitlab project name</mat-label>
+                <input matInput formControlName="gitlabProjectNameFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Gitlab project ID</mat-label>
+                <input matInput formControlName="gitlabProjectIDFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Gitlab BaseURL</mat-label>
+                <input matInput formControlName="gitlabUrlFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Gitlab Access Token</mat-label>
+                <input matInput formControlName="gitlabTokenFormControl" />
+            </mat-form-field>
+        </div>
+
+        <div class="config-page__inner__card">
+            <h3>Slack Setup</h3>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="slackEmailFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Channel Name</mat-label>
+                <input matInput formControlName="slackChannelNameFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>BaseUrl</mat-label>
+                <input matInput formControlName="slackBaseUrlFormControl" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Token</mat-label>
+                <input matInput formControlName="slackTokenFormControl" />
+            </mat-form-field>
+        </div>
+
+        <div class="config-page__inner__alerting">
+            <h3>Alerting Setup</h3>
+            <section>
+                <mat-checkbox [disabled]="true" [checked]="alertingCheckbox1Checked" formControlname="alertingCheckbox1">
+                    I want to post all Issues
+                </mat-checkbox>
+            </section>
+            <section>
+                <mat-checkbox [disabled]="true" [checked]="alertingCheckbox2Checked" formControlname="alertingCheckbox2">
+                    I want to post all updated Issues since last alert
+                </mat-checkbox>
+            </section>
+            <section>
+                <mat-checkbox [disabled]="true" [checked]="alertingCheckbox3Checked" formControlname="alertingCheckbox3">
+                    I want to post all Pipelines
+                </mat-checkbox>
+            </section>
+            <section>
+                <mat-checkbox [disabled]="true" [checked]="alertingCheckbox4Checked" formControlname="alertingCheckbox4">
+                    I want to post all Variables
+                </mat-checkbox>
+            </section>
+        </div>
+    </div>
+</form>

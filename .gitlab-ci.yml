@@ -1,0 +1,54 @@
+stages:
+  - build_and_test
+  - build_and_push_docker
+  - deploy
+
+variables:
+  DOCKER_REPO : git.haw-hamburg.de:5005/se2_webapp/frontend
+  IMAGE_TAG: ${DOCKER_REPO}:${CI_COMMIT_SHA}
+
+build_and_test:
+  image: node:alpine
+  stage: build_and_test
+  script:
+    - npm install -g @angular/cli
+    - npm ci
+    - npm run build --output-path=dist 
+    - apk add chromium
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    - ng test --browsers ChromeHeadlessNoSandbox --watch=false
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+
+build_and_push_docker:
+  stage: build_and_push_docker
+  tags:
+    - docker
+  services:
+    - docker:dind
+  image: docker:20
+  script:
+    - docker login git.haw-hamburg.de:5005 --username ${DOCKER_USERNAME_HAW} --password ${DOCKER_PASSWORD_HAW}
+    - docker build -t ${IMAGE_TAG} -t ${DOCKER_REPO}:latest .
+    - docker push ${DOCKER_REPO} --all-tags
+    - docker logout
+
+# Deployment in der ICC
+# ---------------------
+deploy_cluster:
+  stage: deploy
+  image: bitnami/kubectl:1.21.6
+  dependencies: []
+  environment:
+    name: k8.informatik.haw-hamburg.de
+  script:
+    - kubectl delete -f deployment/deployment.yaml && kubectl apply -f deployment/deployment.yaml
+    

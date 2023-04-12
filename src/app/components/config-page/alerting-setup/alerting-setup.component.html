@@ -1,0 +1,30 @@
+<form (ngSubmit)="onSendAlertingFormHandler()" [formGroup]="sendAlertingForm" class="alerting-setup">
+    <h1>Alerting Setup</h1>
+
+    <div class="alerting-setup__inner">
+        <section>
+            <mat-checkbox #tokenCheckbox1 (change)="tokenCheckboxChange1(tokenCheckbox1.checked)" formControlname="tokenCheckboxControl1">I want to post all Issues
+            </mat-checkbox>
+        </section>
+
+        <section>
+            <mat-checkbox #tokenCheckbox2 (change)="tokenCheckboxChange2(tokenCheckbox2.checked)" formControlname="tokenCheckboxControl2">I want to post all updated Issues since last alert
+            </mat-checkbox>
+        </section>
+
+        <section>
+            <mat-checkbox #tokenCheckbox3 (change)="tokenCheckboxChange3(tokenCheckbox3.checked)" formControlname="tokenCheckboxControl3">I want to post all Pipelines
+            </mat-checkbox>
+
+        </section>
+        <section>
+            <mat-checkbox #tokenCheckbox4 (change)="tokenCheckboxChange4(tokenCheckbox4.checked)" formControlname="tokenCheckboxControl4">I want to post all Variables
+            </mat-checkbox>
+        </section>
+
+        <div class="alerting-setup__inner-buttons">
+            <button mat-raised-button color="basic" class="alerting-setup__inner-buttons__button" type="button" [routerLink]="['/config/slack-setup']">Back</button>
+            <button mat-raised-button color="basic" class="alerting-setup__inner-buttons__button" type="submit" [disabled]="!sendAlertingForm.valid">Finish</button>
+        </div>
+    </div>
+</form>

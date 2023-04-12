@@ -1,0 +1,46 @@
+<mat-spinner *ngIf="!contentLoaded"></mat-spinner>
+<form *ngIf="contentLoaded" (ngSubmit)="onSendSlackFormHandler()" [formGroup]="sendSlackForm" class="slack-setup">
+    <h1>Slack Setup</h1>
+
+    <div class="slack-setup__inner">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="emailFormControl" placeholder="your personal Slack email" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageEmailFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Channel Name</mat-label>
+            <input matInput formControlName="channelNameFormControl"
+                placeholder="your Slack channel name" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageChannelNameFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Slack token</mat-label>
+            <input matInput formControlName="tokenFormControl" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageTokenFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <section>
+            <mat-checkbox #urlCheckbox (change)="urlCheckboxChange(urlCheckbox.checked)" formControlname="urlCheckbox">Use different Base Url
+            </mat-checkbox>
+        </section>
+
+        <mat-form-field appearance="fill" class="slack-setup__inner__url">
+            <mat-label>Slack Base Url (ending with '/')</mat-label>
+            <input matInput formControlName="urlFormControl"
+                placeholder="e.g. 'https://slack.com/'" />
+            <!--  -->
+            <mat-error>{{ getErrorMessageUrlFormControl() }}</mat-error>
+        </mat-form-field>
+
+        <div class="slack-setup__inner-buttons">
+            <button mat-raised-button color="basic" class="slack-setup__inner-buttons__button slack-setup__inner-buttons__button--left" type="button" [routerLink]="['/config/gitlab-setup']">Back</button>
+            <button mat-raised-button color="basic" class="slack-setup__inner-buttons__button" type="submit" [disabled]="!sendSlackForm.valid">Next</button>
+        </div>
+    </div>
+</form>
