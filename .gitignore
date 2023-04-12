@@ -1,0 +1,21 @@
+dist/
+tmp/
+app/**/*.js
+app/**/*.js.map
+
+node_modules/
+bower_components/
+
+# IDEs and editors
+.idea/
+.angular/
+
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
