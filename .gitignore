@@ -12,6 +12,8 @@ bower_components/
 
 .vscode/
 
+.DS_Store
+
 
 # Optional npm cache directory
 .npm
