@@ -28,6 +28,10 @@ Files that need to be redone:
 
     Dockerfile
 
+## Github migration
+
+As you can see, this project was stored in Gitlab during the attack. 
+Therefore the old automated testing and deployment processes do not work anymore.
 
     
 
